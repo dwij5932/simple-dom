@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "OrderStatus",
+  "fields": [
+    {"name": "orderId", "type": "string"},
+    {"name": "status", "type": "string"},
+    {"name": "timestamp", "type": "long"}
+  ]
+}
