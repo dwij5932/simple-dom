@@ -1,5 +1,6 @@
 package org.example.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 public class KafkaMessageProducer {
 
-    private final KafkaProducer<String, Order> producer;
+    private final KafkaProducer<String, String> producer;
     ObjectMapper objectMapper;
 //    private final Schema schema;
 //    private final GenericRecord record;
@@ -23,8 +24,10 @@ public class KafkaMessageProducer {
 //        schema = new Schema.Parser().parse(new File(SCHEMA_FILE_PATH));
     }
 
-    public void produce(Order order) throws ExecutionException, InterruptedException, TimeoutException{
-        final ProducerRecord<String, Order> producerRecord = new ProducerRecord<>("dom.order.status.0", order);
+    public void produce(Order order) throws ExecutionException, InterruptedException, TimeoutException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(order));
+        final ProducerRecord<String, String> producerRecord = new ProducerRecord<>("dom.order.status.0", objectMapper.writeValueAsString(order));
         producer.send(producerRecord).get(30, TimeUnit.SECONDS);
         System.out.println("Message Sent");
         producer.flush();

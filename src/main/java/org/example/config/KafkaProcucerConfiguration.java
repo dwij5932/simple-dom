@@ -10,7 +10,7 @@ public class KafkaProcucerConfiguration {
 
     private static KafkaConfiguration kafkaConfiguration;
 
-    public static synchronized KafkaProducer<String, Order> getConfiguredKafkaProcucer() throws InstantiationError{
+    public static synchronized KafkaProducer<String, String> getConfiguredKafkaProcucer() throws InstantiationError{
         try {
             kafkaConfiguration = KafkaConfiguration.getINSTANCE();
 
