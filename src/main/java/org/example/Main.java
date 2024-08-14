@@ -29,9 +29,9 @@ public class Main {
 //        order.setOrder_date("2023-01-25");
 
         Order order = Order.newBuilder()
-                .setMessageId("1")
+                .setMessageId("17")
                 .setSellerId("USBL")
-                .setCustomerNumber("123456")
+                .setCustomerNumber("CUST003")
                 .setOrderNumber("3456")
                 .setOrderType(Order_Type.ADHOC)
                 .setRouteNumber("3")
@@ -43,6 +43,24 @@ public class Main {
                 .setCreatedTimestamp(new Date().toString())
                 .build();
 
+        Thread.sleep(2000);
+
+        Order order2 = Order.newBuilder()
+                .setMessageId("18")
+                .setSellerId("USBL")
+                .setCustomerNumber("CUST003")
+                .setOrderNumber("3456")
+                .setOrderType(Order_Type.ADHOC)
+                .setRouteNumber("3")
+                .setDeliveryDate("2021-11-16")
+                .setDeliveryMethod("GROUND")
+                .setOrderStatus(Order_Status.CANCEL)
+                .setTotalPrice(BigDecimal.valueOf(234.12))
+                .setOrderDate("2023-01-25")
+                .setCreatedTimestamp(new Date().toString())
+                .build();
+
+        kafkaMessageProducer.produce(order2);
         kafkaMessageProducer.produce(order);
 
         kafkaMessageProducer.close();
